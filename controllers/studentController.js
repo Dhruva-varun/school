@@ -1,4 +1,5 @@
 const Student = require('../models/student');
+const Marks = require("../models/marks");
 
 exports.registerStudent = async (req, res) => {
     try {
@@ -59,16 +60,18 @@ exports.editStudent = async (req, res) => {
 exports.deleteStudent = async (req, res) => {
     try {
         const { rollno } = req.params;
-
+    
         const student = await Student.findOneAndDelete({ rollno });
-
+    
         if (!student) {
-            return res.status(404).json({ message: 'Student not found' });
+          return res.status(404).json({ message: 'Student not found' });
         }
 
-        res.status(200).json({ message: 'Student deleted successfully' });
-    } catch (error) {
+        await Marks.deleteMany({ studentRollno: rollno });
+    
+        res.status(200).json({ message: 'Student and associated marks deleted successfully' });
+      } catch (error) {
         console.error(error.message);
         res.status(500).json({ message: 'Server error' });
-    }
-};
+      }
+    };

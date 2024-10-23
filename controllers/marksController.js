@@ -73,9 +73,9 @@ exports.editMarks = async (req, res) => {
 
 exports.deleteMarks = async (req, res) => {
   try {
-    const { rollno } = req.params;
-    
-    const marks = await Marks.findOneAndDelete({ rollno });
+    const { studentRollno } = req.params;
+
+    const marks = await Marks.findOneAndDelete({ studentRollno });
 
     if (!marks) {
       return res.status(404).json({ message: 'Marks not found for the student' });

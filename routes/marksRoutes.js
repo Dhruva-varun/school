@@ -10,6 +10,7 @@ const {
 router.post("/postMarks/:studentRollno", postMarks);
 router.get("/getMarks/:studentRollno", getMarksByRollNo);
 router.post("/edit/:studentRollno", editMarks);
-router.delete("/deletemarks/:rollno", deleteMarks);
+router.delete("/deletemarks/:studentRollno", deleteMarks);
+
 
 module.exports = router;

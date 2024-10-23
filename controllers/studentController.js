@@ -36,11 +36,11 @@ exports.viewAllStudents = async (req, res) => {
 
 exports.editStudent = async (req, res) => {
     try {
-        const { id } = req.params; 
+        const { rollno } = req.params; 
         const { name, parentname, dob, div } = req.body;
 
         const student = await Student.findOneAndUpdate(
-            {  _id: id },  
+            { rollno },  
             { $set: { name, parentname, dob, div } },  
             { new: true, runValidators: true }  
         );
@@ -53,5 +53,22 @@ exports.editStudent = async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
+    }
+};
+
+exports.deleteStudent = async (req, res) => {
+    try {
+        const { rollno } = req.params;
+
+        const student = await Student.findOneAndDelete({ rollno });
+
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+
+        res.status(200).json({ message: 'Student deleted successfully' });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: 'Server error' });
     }
 };

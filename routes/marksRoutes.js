@@ -1,9 +1,15 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { postMarks, getMarksByRollNo, editMarks } = require('../controllers/marksController');
+const {
+  postMarks,
+  getMarksByRollNo,
+  editMarks,
+  deleteMarks,
+} = require("../controllers/marksController");
 
-router.post('/postMarks/:studentRollno', postMarks);
-router.get('/getMarks/:studentRollno', getMarksByRollNo);
-router.post('/edit/:studentRollno/:subject', editMarks); 
+router.post("/postMarks/:studentRollno", postMarks);
+router.get("/getMarks/:studentRollno", getMarksByRollNo);
+router.post("/edit/:studentRollno", editMarks);
+router.delete("/deletemarks/:rollno", deleteMarks);
 
 module.exports = router;
